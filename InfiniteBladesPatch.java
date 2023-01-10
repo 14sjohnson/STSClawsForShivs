@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.InfiniteBladesPower;
 
 @SpirePatch(clz = InfiniteBladesPower.class, method = "atStartOfTurn")
-public class ModifyInfiniteBlades {
+public class InfiniteBladesPatch {
     public static void Replace(InfiniteBladesPower __instance) {
         if (!AbstractDungeon.getMonsters().areMonstersBasicallyDead()) {
             __instance.flash();
