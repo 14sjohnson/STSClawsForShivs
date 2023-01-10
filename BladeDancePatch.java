@@ -11,19 +11,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @SpirePatch(clz = BladeDance.class, method = "use")
-public class BladeDancePatch {
+class BladeDancePatch {
     public static void Replace(BladeDance __instance, AbstractPlayer p, AbstractMonster m) {
-        Logger logger = LogManager.getLogger(ModInitializer.class.getName());
-        logger.info("adding claws");
         AbstractDungeon.actionManager.addToBottom((AbstractGameAction)new MakeTempCardInHandAction((AbstractCard)new Claw(), __instance.magicNumber));
     }
 }
-//
-//@SpirePatch(clz = BladeDance.class, method = SpirePatch.CONSTRUCTOR)
-//class BladeDanceConPatch {
-//    public static void Postfix(BladeDance __instance, AbstractPlayer p, AbstractMonster m) {
-//        Logger logger = LogManager.getLogger(ModInitializer.class.getName());
-//        logger.info("changing constructor of Blade Dance");
-//        __instance.rawDescription.replace("Shiv", "Claw");
-//    }
-//}
+
+@SpirePatch(clz = BladeDance.class, method = SpirePatch.CONSTRUCTOR)
+class BladeDanceConPatch {
+    public static void Postfix(BladeDance __instance) {
+        __instance.cardsToPreview = (AbstractCard)new Claw();
+        __instance.rawDescription = "Add !M! *Claws into your hand.";
+    }
+}
